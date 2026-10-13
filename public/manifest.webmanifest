@@ -2,9 +2,9 @@
   "name": "发音纠音平台",
   "short_name": "纠音",
   "description": "英语发音纠音：学生提交朗读，老师在图片上逐处批注讲解。",
-  "id": "/",
-  "start_url": "/",
-  "scope": "/",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
@@ -21,7 +21,7 @@
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"

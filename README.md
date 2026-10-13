@@ -163,6 +163,39 @@ Supabase 有一项**默认开启**的设置，会直接卡住学生的注册：
 
 `vercel.json` 已配置 SPA 重写，刷新子路由不会 404。
 
+## GitHub Pages 镜像（国内可直接访问）
+
+Vercel 的默认域名 `*.vercel.app` 在国内被 DNS 污染，不挂梯子打不开。
+因此额外部署了一份 **GitHub Pages 镜像**，作为国内可直接访问的入口：
+
+**https://wowj-bot.github.io/Pronunciation-APP/**
+
+| | Vercel（主站） | GitHub Pages（镜像） |
+| --- | --- | --- |
+| 地址 | `pronunciation-app-gules.vercel.app` | `wowj-bot.github.io/Pronunciation-APP/` |
+| 国内访问 | 需代理 | ✅ 直连可访问 |
+| 代码可见 | 私有仓库 | 公开仓库 |
+| 构建 | 根路径 `/` | 子路径 `/Pronunciation-APP/` |
+
+两边跑的是同一份代码、同一个 Supabase 后端。改完代码后重新发布镜像：
+
+```bash
+bash scripts/deploy-pages.sh
+```
+
+发布流程做了三件适配子路径的事：
+
+1. **构建用 `npm run build:gh`** —— 等价于 `vite build --base=/Pronunciation-APP/`，
+   让所有资源引用带上子路径前缀。
+2. **路由 basename 跟着 `import.meta.env.BASE_URL` 走** —— 根部署是 `/`，
+   子路径部署是 `/Pronunciation-APP/`，同一份代码两边都能跑。
+3. **`404.html` 是 `index.html` 的副本** —— GitHub Pages 没有服务端重写规则，
+   深链接（如 `/Pronunciation-APP/login`）会命中 404 页，内容即应用外壳，
+   前端路由接住后正常渲染。
+
+> PWA 的 `manifest` / `sw.js` 里的路径也都以自身作用域为基准，
+> 所以在镜像站上「添加到主屏幕」同样可用。
+
 ## 手机使用（学生的主要入口）
 
 界面是移动优先的：布局自适应、批注 canvas 支持手指绘制、拍照直接调起相机。

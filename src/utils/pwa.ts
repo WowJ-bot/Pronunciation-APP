@@ -11,7 +11,8 @@ export function registerServiceWorker(): void {
   if (!('serviceWorker' in navigator)) return
 
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
+    // BASE_URL 在根部署（Vercel）是 '/'，在子路径部署（GitHub Pages）是 '/<repo>/'
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {
       /* 注册失败不影响主流程：应用照常以普通网页运行 */
     })
   })

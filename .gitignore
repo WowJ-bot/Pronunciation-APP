@@ -39,3 +39,9 @@ logs
 
 # workspace local notes（本地笔记与临时日志，不入库）
 .workbuddy
+
+# 文档流水线产物（本地生成的 docx/html，不入库）
+output
+
+# 个人简历材料（仓库转为公开后绝不能被提交）
+docs/项目经历-简历与面试手册.md

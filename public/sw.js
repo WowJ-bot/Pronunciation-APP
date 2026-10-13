@@ -65,12 +65,12 @@ self.addEventListener('fetch', (event) => {
           const fresh = await fetch(request)
           if (fresh && fresh.ok) {
             const cache = await caches.open(SHELL_CACHE)
-            cache.put('/index.html', fresh.clone())
+            cache.put(`${BASE}index.html`, fresh.clone())
           }
           return fresh
         } catch {
           const cache = await caches.open(SHELL_CACHE)
-          return (await cache.match('/index.html')) || (await cache.match('/')) || Response.error()
+          return (await cache.match(`${BASE}index.html`)) || (await cache.match(BASE)) || Response.error()
         }
       })(),
     )
